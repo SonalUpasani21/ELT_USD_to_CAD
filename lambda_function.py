@@ -3,6 +3,9 @@ import pandas as pd
 from datetime import datetime, timedelta
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import json
+
+print("Success")
 
 def last_x_days(currency_series,number_of_days):
     r = requests.get('https://www.bankofcanada.ca/valet/observations/{}/json?recent={}'.format(currency_series,number_of_days))
@@ -32,7 +35,7 @@ df = last_x_days('FXUSDCAD',30)
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
 # Add your credentials
-credentials = ServiceAccountCredentials.from_json_keyfile_name('dev-voice-429818-u7-a152c79581e2.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name('focused-sound-441622-m5-2978ce4d9936.json', scope)
 
 # Authorize the clientsheet 
 client = gspread.authorize(credentials)
@@ -48,3 +51,10 @@ rows = df.values.tolist()
 existing_rows = len(sheet.get_all_values())
 
 sheet.append_rows(rows,existing_rows)
+
+def lambda_handler(event, context):
+    # TODO implement
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from Lambda!')
+    }
