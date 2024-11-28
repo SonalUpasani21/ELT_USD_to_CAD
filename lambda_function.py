@@ -5,7 +5,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import json
 
-print("Success")
+print("Success!!")
 
 def last_x_days(currency_series,number_of_days):
     r = requests.get('https://www.bankofcanada.ca/valet/observations/{}/json?recent={}'.format(currency_series,number_of_days))
